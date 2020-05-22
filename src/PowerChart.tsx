@@ -6,7 +6,7 @@ import {
     LineSeries,
     ZoomAndPan
   } from '@devexpress/dx-react-chart-material-ui';
-import {DropzoneArea} from 'material-ui-dropzone';
+import {DropzoneDialog} from 'material-ui-dropzone';
 import {xml2js} from 'xml-js'
 import { Button } from '@material-ui/core';
 
@@ -14,9 +14,20 @@ function PowerChart() {
 
     const [data, setData] = useState([] as any);
     const [files, setFiles] = useState([] as File[]);
+    const [uploadOpen, setUploadOpen] = useState(false);
 
     const uploadFile = async (acceptedFiles: File[]) => {
         setFiles(acceptedFiles);
+        setUploadOpen(false);
+        generateGraph();
+    }
+
+    const openUploadDialog = () => {
+        setUploadOpen(true);
+    }
+
+    const closeUploadDialog = () => {
+        setUploadOpen(false);
     }
 
     const generateGraph = async () => {
@@ -51,14 +62,14 @@ function PowerChart() {
 
     return (
         <>
-            <div style={{height: 300, width: 300}}>
-                <DropzoneArea
-                    onChange={uploadFile}
-                    acceptedFiles={['.gpx']}
-                    dropzoneText={''}
-                />
-            </div>
-            <Button onClick={generateGraph}>Compare</Button>
+            <DropzoneDialog
+                open={uploadOpen}
+                onSave={uploadFile}
+                acceptedFiles={['.gpx']}
+                dropzoneText={''}
+                onClose={closeUploadDialog}
+            />
+            <Button onClick={openUploadDialog}>Upload File</Button>
             <Chart
                 data={data}
             >
