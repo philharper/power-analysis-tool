@@ -20,6 +20,7 @@ function PowerChart() {
     const [data, setData] = useState([] as DataEntry[]);
     const [files, setFiles] = useState([] as File[]);
     const [uploadOpen, setUploadOpen] = useState(false);
+    const [displayGraph, setDisplayGraph] = useState(false);
 
     const uploadFile = (acceptedFiles: File[]) => {
         setFiles(acceptedFiles);
@@ -33,23 +34,28 @@ function PowerChart() {
                 setData(await GpxUtils.parseGpxFile(acceptedFile));
             }
         }
+        setDisplayGraph(true);
     }
 
     return (
         <>
             <Button onClick={() => setUploadOpen(true)}>Upload File</Button>
             <Button onClick={generateGraph}>Generate Graph</Button>
-            <Chart
-                data={data}   
-            >
-                <Title text="Power Graph"/>
-                <ArgumentScale factory={scaleTime}/>
-                <ArgumentAxis />
-                <ValueAxis />
-                <LineSeries valueField="power" argumentField="time" name={files[0]?.name.split('.')[0] || 'N/A'} />
-                <ZoomAndPan />
-                <Legend position='bottom'/>
-            </Chart>
+            {
+                displayGraph &&
+                    <Chart
+                        data={data}   
+                    >
+                        <Title text="Power Graph"/>
+                        <ArgumentScale factory={scaleTime}/>
+                        <ArgumentAxis />
+                        <ValueAxis />
+                        <LineSeries valueField="power" argumentField="time" name={files[0]?.name.split('.')[0] || 'N/A'} />
+                        <ZoomAndPan />
+                        <Legend position='bottom'/>
+                    </Chart>
+            }
+            
             <DropzoneDialog
                 open={uploadOpen}
                 onSave={uploadFile}
