@@ -10,9 +10,11 @@ import {
 import {DropzoneDialog} from 'material-ui-dropzone';
 import {xml2js} from 'xml-js'
 import { Button } from '@material-ui/core';
+import { ArgumentScale } from '@devexpress/dx-react-chart';
+import { scaleTime } from 'd3-scale';
 
 class DataEntry {
-    time?: number;
+    time?: Date;
     power?: number;
 }
 
@@ -47,9 +49,10 @@ function PowerChart() {
                     
                     if (!isNaN(power)) {
                         const powerReading = new DataEntry() 
-                        powerReading.time = time.getTime();
+                        powerReading.time = time;
                         powerReading.power = parseInt(power);
                         powerReadings.push(powerReading);
+                        console.log(powerReading);
                     }
                 }
             });
@@ -64,7 +67,9 @@ function PowerChart() {
             <Button onClick={generateGraph}>Generate Graph</Button>
             <Chart
                 data={data}
+                
             >
+                <ArgumentScale factory={scaleTime}/>
                 <ArgumentAxis />
                 <ValueAxis />
                 <LineSeries valueField="power" argumentField="time" />
