@@ -5,22 +5,19 @@ import {
     Chart,
     LineSeries,
     ZoomAndPan,
-    Legend
+    Legend,
+    Title
   } from '@devexpress/dx-react-chart-material-ui';
 import {DropzoneDialog} from 'material-ui-dropzone';
-import {xml2js} from 'xml-js'
 import { Button } from '@material-ui/core';
 import { ArgumentScale } from '@devexpress/dx-react-chart';
 import { scaleTime } from 'd3-scale';
-
-class DataEntry {
-    time?: Date;
-    power?: number;
-}
+import DataEntry from './DataEntry';
+import GpxUtils from './GpxUtils';
 
 function PowerChart() {
 
-    const [data, setData] = useState([] as any);
+    const [data, setData] = useState([] as DataEntry[]);
     const [files, setFiles] = useState([] as File[]);
     const [uploadOpen, setUploadOpen] = useState(false);
 
@@ -29,59 +26,36 @@ function PowerChart() {
         setUploadOpen(false);
     }
 
-    const openUploadDialog = () => {
-        setUploadOpen(true);
-    }
-
-    const closeUploadDialog = () => {
-        setUploadOpen(false);
-    }
-
     const generateGraph = async () => {
-        let powerReadings: DataEntry[] = [];
-
         for (const acceptedFile of files) {
-            await acceptedFile.text().then((output) => {
-                const gpxContent = xml2js(output);
-                for (const reading of gpxContent.elements[0].elements[1].elements[2].elements) {
-                    const time = new Date(reading.elements[1].elements[0].text);
-                    const power = reading.elements[2].elements[0].elements[0].text;
-                    
-                    if (!isNaN(power)) {
-                        const powerReading = new DataEntry() 
-                        powerReading.time = time;
-                        powerReading.power = parseInt(power);
-                        powerReadings.push(powerReading);
-                        console.log(powerReading);
-                    }
-                }
-            });
+            const splitFileName = acceptedFile.name.split('.');
+            if (splitFileName[splitFileName.length - 1] === 'gpx') {
+                setData(await GpxUtils.parseGpxFile(acceptedFile));
+            }
         }
-        
-        setData(powerReadings);
     }
 
     return (
         <>
-            <Button onClick={openUploadDialog}>Upload File</Button>
+            <Button onClick={() => setUploadOpen(true)}>Upload File</Button>
             <Button onClick={generateGraph}>Generate Graph</Button>
             <Chart
-                data={data}
-                
+                data={data}   
             >
+                <Title text="Power Graph"/>
                 <ArgumentScale factory={scaleTime}/>
                 <ArgumentAxis />
                 <ValueAxis />
-                <LineSeries valueField="power" argumentField="time" />
+                <LineSeries valueField="power" argumentField="time" name={files[0]?.name.split('.')[0] || 'N/A'} />
                 <ZoomAndPan />
-                <Legend />
+                <Legend position='bottom'/>
             </Chart>
             <DropzoneDialog
                 open={uploadOpen}
                 onSave={uploadFile}
                 acceptedFiles={['.gpx']}
                 dropzoneText={''}
-                onClose={closeUploadDialog}
+                onClose={() => setUploadOpen(false)}
             />
         </>
     )
