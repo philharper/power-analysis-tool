@@ -23,6 +23,8 @@ function PowerChart() {
     const [uploadOpen, setUploadOpen] = useState(false);
     const [displayGraph, setDisplayGraph] = useState(false);
 
+    let fileLoop = 0;
+
     const uploadFile = (acceptedFiles: File[]) => {
         setFiles(acceptedFiles);
         setUploadOpen(false);
@@ -32,11 +34,13 @@ function PowerChart() {
         let generatedData: React.SetStateAction<DataEntry[]> = [];
         for (let i = 0; i < files.length; i++) {
             const acceptedFile = files[i];
-            console.log(acceptedFile);
             const splitFileName = acceptedFile.name.split('.');
-            if (splitFileName[splitFileName.length - 1] === 'gpx') {
-                generatedData = generatedData.concat(await GpxUtils.parseGpxFile(acceptedFile, i + 1, i * 100));
+            const fileType = splitFileName[splitFileName.length - 1];
+            if (fileType === 'gpx') {
+                const data = await GpxUtils.parseGpxFile(acceptedFile, i + 1);
+                generatedData = generatedData.concat(data);
             }
+            
         }
 
         setData(generatedData);
@@ -57,8 +61,11 @@ function PowerChart() {
                             <ArgumentScale factory={scaleTime}/>
                             <ArgumentAxis />
                             <ValueAxis />
-                            <LineSeries valueField="power" argumentField="time" />
-                            <LineSeries valueField="power2" argumentField="time" />
+                            {
+                                files.map((file: File) => {
+                                    return <LineSeries valueField={'power' + (++fileLoop)} argumentField="time" name={file.name}/>
+                                })
+                            }
                             <ZoomAndPan />
                             <Legend position='bottom'/>
                         </Chart>
@@ -69,7 +76,7 @@ function PowerChart() {
             <DropzoneDialog
                 open={uploadOpen}
                 onSave={uploadFile}
-                acceptedFiles={['.gpx']}
+                acceptedFiles={['.gpx', '.fit']}
                 dropzoneText={''}
                 onClose={() => setUploadOpen(false)}
                 maxFileSize={5000000}
