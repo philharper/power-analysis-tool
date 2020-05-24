@@ -14,7 +14,6 @@ import { ArgumentScale } from '@devexpress/dx-react-chart';
 import { scaleTime } from 'd3-scale';
 import DataEntry from './DataEntry';
 import GpxUtils from './GpxUtils';
-import PowerAnalysisUtils from './PowerAnalysisUtils';
 import PowerAverages from './PowerAverages';
 
 function PowerChart() {
@@ -30,12 +29,17 @@ function PowerChart() {
     }
 
     const generateGraph = async () => {
-        for (const acceptedFile of files) {
+        let generatedData: React.SetStateAction<DataEntry[]> = [];
+        for (let i = 0; i < files.length; i++) {
+            const acceptedFile = files[i];
+            console.log(acceptedFile);
             const splitFileName = acceptedFile.name.split('.');
             if (splitFileName[splitFileName.length - 1] === 'gpx') {
-                setData(await GpxUtils.parseGpxFile(acceptedFile));
+                generatedData = generatedData.concat(await GpxUtils.parseGpxFile(acceptedFile, i + 1, i * 100));
             }
         }
+
+        setData(generatedData);
         setDisplayGraph(true);
     }
 
@@ -53,7 +57,8 @@ function PowerChart() {
                             <ArgumentScale factory={scaleTime}/>
                             <ArgumentAxis />
                             <ValueAxis />
-                            <LineSeries valueField="power" argumentField="time" name={files[0]?.name.split('.')[0] || 'N/A'} />
+                            <LineSeries valueField="power" argumentField="time" />
+                            <LineSeries valueField="power2" argumentField="time" />
                             <ZoomAndPan />
                             <Legend position='bottom'/>
                         </Chart>
