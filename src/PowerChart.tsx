@@ -15,6 +15,7 @@ import { scaleTime } from 'd3-scale';
 import DataEntry from './DataEntry';
 import GpxUtils from './GpxUtils';
 import PowerAnalysisUtils from './PowerAnalysisUtils';
+import PowerAverages from './PowerAverages';
 
 function PowerChart() {
 
@@ -56,16 +57,7 @@ function PowerChart() {
                             <ZoomAndPan />
                             <Legend position='bottom'/>
                         </Chart>
-                        <p>Max Power: {PowerAnalysisUtils.getMaxPower(data)}</p>
-                        <p>Average Power: {PowerAnalysisUtils.calculateAveragePower(data)}</p>
-                        <p>5 Second Power: {PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, 5)}</p>
-                        <p>10 Second Power: {PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, 10)}</p>
-                        <p>30 Second Power: {PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, 30)}</p>
-                        <p>1 Minute Power: {PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, 60)}</p>
-                        <p>5 Minute Power: {PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, 60 * 5)}</p>
-                        <p>10 Minute Power: {PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, 60 * 10)}</p>
-                        <p>20 Minute Power: {PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, 60 * 20)}</p>
-                        <p>FTP: {(PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, 60 * 20)/100) * 95}</p>
+                        <PowerAverages data={data} />
                     </>
             }
             
