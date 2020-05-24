@@ -12,7 +12,7 @@ export default class GpxUtils {
                 const time = new Date(reading.elements[1].elements[0].text);
                 const power = reading.elements[2].elements[0].elements[0].text;
                 
-                if (!isNaN(power)) {
+                if (power) {
                     const powerReading = new DataEntry() 
                     powerReading.time = time;
                     powerReading.power = parseInt(power);

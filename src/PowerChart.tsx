@@ -56,6 +56,7 @@ function PowerChart() {
                             <ZoomAndPan />
                             <Legend position='bottom'/>
                         </Chart>
+                        <p>Max Power: {PowerAnalysisUtils.getMaxPower(data)}</p>
                         <p>Average Power: {PowerAnalysisUtils.calculateAveragePower(data)}</p>
                         <p>5 Second Power: {PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, 5)}</p>
                         <p>10 Second Power: {PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, 10)}</p>
@@ -64,6 +65,7 @@ function PowerChart() {
                         <p>5 Minute Power: {PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, 60 * 5)}</p>
                         <p>10 Minute Power: {PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, 60 * 10)}</p>
                         <p>20 Minute Power: {PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, 60 * 20)}</p>
+                        <p>FTP: {(PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, 60 * 20)/100) * 95}</p>
                     </>
             }
             
