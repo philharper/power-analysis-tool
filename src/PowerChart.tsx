@@ -79,7 +79,7 @@ function PowerChart() {
                 acceptedFiles={['.gpx', '.fit']}
                 dropzoneText={''}
                 onClose={() => setUploadOpen(false)}
-                maxFileSize={5000000}
+                maxFileSize={10000000}
             />
         </>
     )
