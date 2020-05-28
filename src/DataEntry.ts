@@ -1,4 +1,5 @@
 export default class DataEntry {
     time?: Date;
-    power?: number;
+    power1?: number;
+    power2?: number;
 }

@@ -18,12 +18,12 @@ function PowerAverages(props: PowerAverageProps) {
             <p>Average Power: {PowerAnalysisUtils.calculateAveragePower(data)}</p>
             {
                 secondPowers.map((secondPower) => {
-                    return <p>{secondPower} Second Power: {PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, secondPower)}</p>
+                    return <p key={secondPower}>{secondPower} Second Power: {PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, secondPower)}</p>
                 })
             }
             {
                 minutePowers.map((minutePower) => {
-                    return <p>{minutePower} Second Power: {PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, minutePower)}</p>
+                    return <p key={minutePower}>{minutePower} Minute Power: {PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, minutePower * 60)}</p>
                 })
             }
             <p>FTP: {(PowerAnalysisUtils.calculateMaxAveragePowerByTime(data, 60 * 20)/100) * 95}</p>

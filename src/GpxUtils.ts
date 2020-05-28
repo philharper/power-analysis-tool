@@ -3,7 +3,7 @@ import { xml2js } from "xml-js";
 
 export default class GpxUtils {
 
-    static async parseGpxFile(gpxFile: File) {
+    static async parseGpxFile(gpxFile: File, fileNumber: number) {
         let powerReadings: DataEntry[] = [];
         
         await gpxFile.text().then((output) => {
@@ -15,7 +15,12 @@ export default class GpxUtils {
                 if (power) {
                     const powerReading = new DataEntry() 
                     powerReading.time = time;
-                    powerReading.power = parseInt(power);
+                    if (fileNumber === 1) {
+                        powerReading.power1 = parseInt(power);
+                    }
+                    if (fileNumber === 2) {
+                        powerReading.power2 = parseInt(power);
+                    }
                     powerReadings.push(powerReading);
                 }
             }

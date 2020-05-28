@@ -14,7 +14,6 @@ import { ArgumentScale } from '@devexpress/dx-react-chart';
 import { scaleTime } from 'd3-scale';
 import DataEntry from './DataEntry';
 import GpxUtils from './GpxUtils';
-import PowerAnalysisUtils from './PowerAnalysisUtils';
 import PowerAverages from './PowerAverages';
 
 function PowerChart() {
@@ -24,18 +23,27 @@ function PowerChart() {
     const [uploadOpen, setUploadOpen] = useState(false);
     const [displayGraph, setDisplayGraph] = useState(false);
 
+    let fileLoop = 0;
+
     const uploadFile = (acceptedFiles: File[]) => {
         setFiles(acceptedFiles);
         setUploadOpen(false);
     }
 
     const generateGraph = async () => {
-        for (const acceptedFile of files) {
+        let generatedData: React.SetStateAction<DataEntry[]> = [];
+        for (let i = 0; i < files.length; i++) {
+            const acceptedFile = files[i];
             const splitFileName = acceptedFile.name.split('.');
-            if (splitFileName[splitFileName.length - 1] === 'gpx') {
-                setData(await GpxUtils.parseGpxFile(acceptedFile));
+            const fileType = splitFileName[splitFileName.length - 1];
+            if (fileType === 'gpx') {
+                const data = await GpxUtils.parseGpxFile(acceptedFile, i + 1);
+                generatedData = generatedData.concat(data);
             }
+            
         }
+
+        setData(generatedData);
         setDisplayGraph(true);
     }
 
@@ -53,7 +61,11 @@ function PowerChart() {
                             <ArgumentScale factory={scaleTime}/>
                             <ArgumentAxis />
                             <ValueAxis />
-                            <LineSeries valueField="power" argumentField="time" name={files[0]?.name.split('.')[0] || 'N/A'} />
+                            {
+                                files.map((file: File) => {
+                                    return <LineSeries valueField={'power' + (++fileLoop)} argumentField="time" name={file.name}/>
+                                })
+                            }
                             <ZoomAndPan />
                             <Legend position='bottom'/>
                         </Chart>
@@ -64,10 +76,10 @@ function PowerChart() {
             <DropzoneDialog
                 open={uploadOpen}
                 onSave={uploadFile}
-                acceptedFiles={['.gpx']}
+                acceptedFiles={['.gpx', '.fit']}
                 dropzoneText={''}
                 onClose={() => setUploadOpen(false)}
-                maxFileSize={5000000}
+                maxFileSize={10000000}
             />
         </>
     )
