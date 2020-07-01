@@ -1,4 +1,4 @@
-import DataEntry from "./DataEntry";
+import DataEntry from "../DataEntry";
 import { xml2js } from "xml-js";
 
 export default class GpxUtils {

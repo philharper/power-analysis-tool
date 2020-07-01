@@ -13,7 +13,7 @@ import { Button } from '@material-ui/core';
 import { ArgumentScale } from '@devexpress/dx-react-chart';
 import { scaleTime } from 'd3-scale';
 import DataEntry from './DataEntry';
-import GpxUtils from './GpxUtils';
+import GpxUtils from './utils/GpxUtils';
 import PowerAverages from './PowerAverages';
 
 function PowerChart() {

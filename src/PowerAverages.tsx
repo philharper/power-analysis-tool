@@ -1,5 +1,5 @@
 import React from "react"
-import PowerAnalysisUtils from "./PowerAnalysisUtils"
+import PowerAnalysisUtils from "./utils/PowerAnalysisUtils"
 import DataEntry from "./DataEntry";
 
 class PowerAverageProps {
