@@ -49,5 +49,8 @@
   },
   "devDependencies": {
     "@types/xml2js": "^0.4.5"
+  },
+  "engines": {
+    "node": "13.x"
   }
 }
