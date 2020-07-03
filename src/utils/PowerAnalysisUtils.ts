@@ -1,4 +1,4 @@
-import DataEntry from "../DataEntry";
+import DataEntry from "../types/DataEntry";
 
 export default class PowerAnalysisUtils {
 

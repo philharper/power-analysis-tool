@@ -1,5 +1,5 @@
 import PowerAnalysisUtils from './PowerAnalysisUtils';
-import DataEntry from '../DataEntry';
+import DataEntry from '../types/DataEntry';
 
 function createDataEntry(date: Date, power: number) {
     let dataEntry = new DataEntry();
