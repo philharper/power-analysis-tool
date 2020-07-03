@@ -1,4 +1,5 @@
 import DataEntry from "../DataEntry";
+import SecondPower from "./SecondPower";
 
 export default class PowerAnalysisUtils {
 
@@ -50,5 +51,15 @@ export default class PowerAnalysisUtils {
         }
 
         return rangeTotalPower;
+    }
+
+    static convertPowerReadingsToSecondData(readings: DataEntry[]): SecondPower[] {
+        return readings.reduce(function(second: SecondPower[], currentValue: DataEntry, currentIndex: number, array: DataEntry[]) {
+            var nextIndex = currentIndex + 1
+            if (nextIndex < array.length) {
+                second.push(new SecondPower(currentValue, array[nextIndex]))
+            }
+            return second;
+        }, new Array<SecondPower>())
     }
 }
