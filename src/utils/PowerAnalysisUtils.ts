@@ -44,8 +44,10 @@ export default class PowerAnalysisUtils {
         let currentPosition = rangeStart;
         rangeLength--;
 
-        while (currentPosition <= rangeStart + rangeLength && currentPosition < powerReadings.length) {
-            rangeTotalPower += powerReadings[currentPosition].power1 || 0;
+        while (currentPosition <= rangeStart + rangeLength && currentPosition + 1 < powerReadings.length) {
+            const readingOne = powerReadings[currentPosition].power1 || 0;
+            const readingTwo = powerReadings[currentPosition + 1].power1 || 0;
+            rangeTotalPower += (readingOne + readingTwo) / 2;
             currentPosition++;
         }
 

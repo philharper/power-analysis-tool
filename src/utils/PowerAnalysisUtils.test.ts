@@ -1,5 +1,3 @@
-import React from 'react';
-import { render } from '@testing-library/react';
 import PowerAnalysisUtils from './PowerAnalysisUtils';
 import DataEntry from '../DataEntry';
 
@@ -43,5 +41,5 @@ test('calculateMaxAveragePowerByTime returns average power for ten seconds', () 
     dataEntries.push(createDataEntry(new Date(), 724));  // 10
     dataEntries.push(createDataEntry(new Date(), 673));  // 11
 
-    expect(PowerAnalysisUtils.calculateMaxAveragePowerByTime(dataEntries, 10)).toBe(857);
+    expect(PowerAnalysisUtils.calculateMaxAveragePowerByTime(dataEntries, 10)).toBe(851);
 })
