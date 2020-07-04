@@ -1,4 +1,3 @@
-import AverageSecondPower from "./SecondPower";
 import DataEntry from "../types/DataEntry";
 
 
