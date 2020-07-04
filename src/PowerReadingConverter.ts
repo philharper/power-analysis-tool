@@ -1,4 +1,4 @@
-import DataEntry from "./DataEntry";
+import DataEntry from "./types/DataEntry";
 import AverageSecondPower from "./utils/SecondPower";
 
 export class PowerReadingConverter {

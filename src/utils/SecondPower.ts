@@ -1,4 +1,4 @@
-import DataEntry from "../DataEntry"
+import DataEntry from "../types/DataEntry"
 
 export default class AverageSecondPower {
 
@@ -9,6 +9,6 @@ export default class AverageSecondPower {
     constructor(start: DataEntry, end: DataEntry) {
         this.start = start
         this.end = end
-        this.average = (this.start?.power1 || 0) + (this.end?.power1 || 0) / 2
+        this.average = ((this.start?.power1 || 0) + (this.end?.power1 || 0))/ 2
     }
 }

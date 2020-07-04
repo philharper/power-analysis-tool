@@ -12,8 +12,8 @@ import {DropzoneDialog} from 'material-ui-dropzone';
 import { Button } from '@material-ui/core';
 import { ArgumentScale } from '@devexpress/dx-react-chart';
 import { scaleTime } from 'd3-scale';
-import DataEntry from './DataEntry';
-import GpxUtils from './utils/GpxUtils';
+import DataEntry from '../types/DataEntry';
+import GpxUtils from '../utils/GpxUtils';
 import PowerAverages from './PowerAverages';
 
 function PowerChart() {
