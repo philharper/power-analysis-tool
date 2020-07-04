@@ -30,7 +30,7 @@ test('confirm the average of a DataEntry with the power of 1 and an entry with n
 });
 
 
-test('confirm that 11 DataEntry are converted to 10 average powers', () => {
+test('confirm that an array 11 DataEntry are converted to and array of 10 AverageSecondPower', () => {
     var dataEntry = new DataEntry()
     dataEntry.power1 = 1
     let dataEntries: DataEntry[] = [dataEntry, dataEntry, dataEntry, dataEntry, dataEntry, dataEntry, dataEntry, dataEntry, dataEntry, dataEntry, dataEntry]
