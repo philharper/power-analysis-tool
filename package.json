@@ -28,6 +28,7 @@
     "xml2js": "^0.4.23"
   },
   "scripts": {
+    "startLocal": "react-scripts start",
     "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
