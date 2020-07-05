@@ -10,7 +10,7 @@ export class AverageRange {
         this.range = range
     }
 
-    average() {
+    average(): number {
         return this.averages.reduce((accumulator, currentValue) => accumulator + currentValue.average, 0) / this.range
     }
 }

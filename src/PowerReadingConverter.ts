@@ -14,7 +14,7 @@ export class PowerReadingConverter {
      */
     public convert(dataEntries: DataEntry[]): AverageSecondPower[] {
         return dataEntries.reduce(function(second: AverageSecondPower[], currentValue: DataEntry, currentIndex: number, array: DataEntry[]) {
-            var nextIndex = currentIndex + 1
+            let nextIndex = currentIndex + 1
             if (nextIndex < array.length) {
                 second.push(new AverageSecondPower(currentValue, array[nextIndex]))
             }

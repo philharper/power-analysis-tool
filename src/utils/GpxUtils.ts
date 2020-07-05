@@ -13,8 +13,7 @@ export default class GpxUtils {
                 const power = reading.elements[2].elements[0].elements[0].text;
                 
                 if (power) {
-                    const powerReading = new DataEntry() 
-                    powerReading.time = time;
+                    const powerReading = new DataEntry(time, 0) 
                     if (fileNumber === 1) {
                         powerReading.power1 = parseInt(power);
                     }
