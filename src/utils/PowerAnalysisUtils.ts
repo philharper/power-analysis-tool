@@ -1,4 +1,6 @@
 import DataEntry from "../types/DataEntry";
+import { AverageRange } from "../AverageRange";
+import AverageSecondPower from "../types/AverageSecondPower";
 
 
 export default class PowerAnalysisUtils {
@@ -26,32 +28,14 @@ export default class PowerAnalysisUtils {
         return Math.floor(totalPower / powerReadings.length);
     }
 
-    static calculateMaxAveragePowerByTime(powerReadings: DataEntry[], seconds: number) {
+    static calculateMaxAveragePowerByTime(powerReadings: AverageSecondPower[], seconds: number) {
         let maxAveragePower = 0;
         for (let i = 0; i < powerReadings.length; i++) {
-            let rangeTotalPower = this.getRangeTotalPower(i, seconds, powerReadings);
-
-            const rangeAveragePower = rangeTotalPower / seconds;
+            var averageRange = new AverageRange(powerReadings.splice(i, i + seconds), seconds)
+            const rangeAveragePower = averageRange.average();
             if (rangeAveragePower > maxAveragePower)
                 maxAveragePower = rangeAveragePower;
         }
-
         return Math.floor(maxAveragePower);
-    }
-
-
-    private static getRangeTotalPower(rangeStart: number, rangeLength: number, powerReadings: DataEntry[]) {
-        let rangeTotalPower = 0;
-        let currentPosition = rangeStart;
-        rangeLength--;
-
-        while (currentPosition <= rangeStart + rangeLength && currentPosition + 1 < powerReadings.length) {
-            const readingOne = powerReadings[currentPosition].power1 || 0;
-            const readingTwo = powerReadings[currentPosition + 1].power1 || 0;
-            rangeTotalPower += (readingOne + readingTwo) / 2;
-            currentPosition++;
-        }
-
-        return rangeTotalPower;
     }
 }

@@ -1,4 +1,4 @@
-import DataEntry from "../types/DataEntry"
+import DataEntry from "./DataEntry"
 
 export default class AverageSecondPower {
 
