@@ -13,12 +13,12 @@ export class PowerReadingConverter {
      * @param readings data entry readings to convert to second data
      */
     public convert(dataEntries: DataEntry[]): AverageSecondPower[] {
-        return dataEntries.reduce(function(second: AverageSecondPower[], currentValue: DataEntry, currentIndex: number, array: DataEntry[]) {
-            let nextIndex = currentIndex + 1
+        return dataEntries.reduce(function(averageSecondPower, average, index, array) {
+            let nextIndex = index + 1
             if (nextIndex < array.length) {
-                second.push(new AverageSecondPower(currentValue.power1 || 0, array[nextIndex].power1 || 0))
+                averageSecondPower.push(new AverageSecondPower(average.power1 || 0, array[nextIndex].power1 || 0))
             }
-            return second;
+            return averageSecondPower;
         }, new Array<AverageSecondPower>())
     }
 }
