@@ -2,13 +2,13 @@ import DataEntry from "./DataEntry"
 
 export default class AverageSecondPower {
 
-    private readonly start: DataEntry
-    private readonly end: DataEntry
+    private readonly start: number
+    private readonly end: number
     readonly average: number
 
-    constructor(start: DataEntry, end: DataEntry) {
+    constructor(start: number, end: number) {
         this.start = start
         this.end = end
-        this.average = ((this.start.power1 || 0) + (this.end.power1 || 0)) / 2
+        this.average = (start + end) / 2
     }
 }

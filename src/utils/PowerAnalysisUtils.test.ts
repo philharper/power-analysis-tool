@@ -23,16 +23,16 @@ test('calculateAveragePower returns average power', () => {
 
 test('calculateMaxAveragePowerByTime returns average power for ten seconds', () => {
     let averageSecondPower: AverageSecondPower[] = [
-        new AverageSecondPower(new DataEntry(new Date(), 615), new DataEntry(new Date(), 835)),
-        new AverageSecondPower(new DataEntry(new Date(), 835), new DataEntry(new Date(), 886)),
-        new AverageSecondPower(new DataEntry(new Date(), 886), new DataEntry(new Date(), 939)),
-        new AverageSecondPower(new DataEntry(new Date(), 939), new DataEntry(new Date(), 948)),
-        new AverageSecondPower(new DataEntry(new Date(), 948), new DataEntry(new Date(), 925)),
-        new AverageSecondPower(new DataEntry(new Date(), 925), new DataEntry(new Date(), 861)),
-        new AverageSecondPower(new DataEntry(new Date(), 861), new DataEntry(new Date(), 888)),
-        new AverageSecondPower(new DataEntry(new Date(), 888), new DataEntry(new Date(), 785)),
-        new AverageSecondPower(new DataEntry(new Date(), 785), new DataEntry(new Date(), 781)),
-        new AverageSecondPower(new DataEntry(new Date(), 781), new DataEntry(new Date(), 724))
+        new AverageSecondPower(615, 835),
+        new AverageSecondPower(835, 886),
+        new AverageSecondPower(886, 939),
+        new AverageSecondPower(939, 948),
+        new AverageSecondPower(948, 925),
+        new AverageSecondPower(925, 861),
+        new AverageSecondPower(861, 888),
+        new AverageSecondPower(888, 785),
+        new AverageSecondPower(785, 781),
+        new AverageSecondPower(781, 724)
     ]
     expect(PowerAnalysisUtils.calculateMaxAveragePowerByTime(averageSecondPower, 10)).toBe(851);
 })
