@@ -1,5 +1,3 @@
-import DataEntry from "./DataEntry"
-
 export default class AverageSecondPower {
 
     private readonly start: number

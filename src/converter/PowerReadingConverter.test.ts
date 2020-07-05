@@ -1,6 +1,5 @@
-import DataEntry from "./types/DataEntry";
+import DataEntry from "../types/DataEntry";
 import { PowerReadingConverter } from "./PowerReadingConverter";
-"./utils/SecondPower";
 
 test('confirm the average of two DataEntry with the power of 1 is 1', () => {
     let entryOne = new DataEntry(new Date(), 1)
