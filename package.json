@@ -23,6 +23,7 @@
     "react-dom": "^16.13.1",
     "react-file-reader": "^1.1.4",
     "react-scripts": "3.4.1",
+    "rechart": "0.0.1",
     "typescript": "^3.9.3",
     "xml-js": "^1.6.11",
     "xml2js": "^0.4.23"
