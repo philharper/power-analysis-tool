@@ -1,5 +1,5 @@
 import DataEntry from "../types/DataEntry";
-import { AverageRange } from "../AverageRange";
+import { AverageRange } from "../types/AverageRange";
 import AverageSecondPower from "../types/AverageSecondPower";
 
 
@@ -31,7 +31,7 @@ export default class PowerAnalysisUtils {
     static calculateMaxAveragePowerByTime(powerReadings: AverageSecondPower[], seconds: number) {
         let maxAveragePower = 0;
         for (let i = 0; i < powerReadings.length; i++) {
-            var averageRange = new AverageRange(powerReadings.splice(i, i + seconds), seconds)
+            const averageRange = new AverageRange(powerReadings.splice(i, i + seconds), seconds)
             const rangeAveragePower = averageRange.average();
             if (rangeAveragePower > maxAveragePower)
                 maxAveragePower = rangeAveragePower;

@@ -1,4 +1,4 @@
-import AverageSecondPower from "./types/AverageSecondPower";
+import AverageSecondPower from "./AverageSecondPower";
 
 export class AverageRange {
 
