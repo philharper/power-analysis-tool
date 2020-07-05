@@ -1,20 +1,10 @@
 import React, { useState } from 'react';
-import {
-    ArgumentAxis,
-    ValueAxis,
-    Chart,
-    LineSeries,
-    ZoomAndPan,
-    Legend,
-    Title
-  } from '@devexpress/dx-react-chart-material-ui';
 import {DropzoneDialog} from 'material-ui-dropzone';
 import { Button } from '@material-ui/core';
-import { ArgumentScale } from '@devexpress/dx-react-chart';
-import { scaleTime } from 'd3-scale';
 import DataEntry from '../types/DataEntry';
 import GpxUtils from '../utils/GpxUtils';
 import PowerAverages from './PowerAverages';
+import { LineChart, Line, Brush, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 function PowerChart() {
 
@@ -54,21 +44,14 @@ function PowerChart() {
             {
                 displayGraph &&
                     <>
-                        <Chart
-                            data={data}   
-                        >
-                            <Title text="Power Graph"/>
-                            <ArgumentScale factory={scaleTime}/>
-                            <ArgumentAxis />
-                            <ValueAxis />
-                            {
-                                files.map((file: File) => {
-                                    return <LineSeries valueField={'power' + (++fileLoop)} argumentField="time" name={file.name}/>
-                                })
-                            }
-                            <ZoomAndPan />
-                            <Legend position='bottom'/>
-                        </Chart>
+                        <LineChart width={1000} height={400} data={data}>
+                            <XAxis dataKey="time" />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            <Line type="monotone" dataKey="power1" stroke="#8884d8" />
+                            <Brush />
+                        </LineChart>
                         <PowerAverages data={data} />
                     </>
             }
