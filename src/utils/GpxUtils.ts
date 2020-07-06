@@ -14,14 +14,16 @@ export default class GpxUtils {
                     let time = new Date();
                     let power = 0;
                     let cadence = 0;
+                    let heartRate = 0;
 
                     try {
                         time = new Date(reading.time);
                         power = parseInt(reading.extensions[0].power[0]);  
                         cadence = parseInt(reading.extensions[0].TrackPointExtension[0].cad[0]);
+                        heartRate = parseInt(reading.extensions[0].TrackPointExtension[0].hr[0]);
 
                         if (power) {
-                            const powerReading = new DataEntry(time, power, cadence);
+                            const powerReading = new DataEntry(time, power, cadence, heartRate);
                             powerReadings.push(powerReading);
                         }
                     } catch {

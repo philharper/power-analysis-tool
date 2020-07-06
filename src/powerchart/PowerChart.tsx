@@ -65,7 +65,8 @@ function PowerChart() {
                                 files.map((file: File) => {
                                     return ([
                                         <LineSeries key={file.name + 'power'} valueField={'power'} argumentField="time" name={'Power'}/>,
-                                        <LineSeries key={file.name + 'cadence'} valueField={'cadence'} argumentField="time" name={'Cadence'}/>
+                                        <LineSeries key={file.name + 'cadence'} valueField={'cadence'} argumentField="time" name={'Cadence'}/>,
+                                        <LineSeries key={file.name + 'heartrate'} valueField={'heartRate'} argumentField="time" name={'Heart Rate'}/>
                                     ]);  
                                 })
                             }
