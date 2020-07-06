@@ -6,7 +6,7 @@ export default class PowerAnalysisUtils {
         let maxPower = 0;
 
         for (const dataEntry of powerReadings) {
-            const power = dataEntry.power1 || 0;
+            const power = dataEntry.power || 0;
             if (power > maxPower) {
                 maxPower = power;
             }
@@ -19,7 +19,7 @@ export default class PowerAnalysisUtils {
         let totalPower = 0;
 
         for (const dataEntry of powerReadings) {
-            totalPower += dataEntry.power1 || 0;
+            totalPower += dataEntry.power || 0;
         }
         
         return Math.floor(totalPower / powerReadings.length);
@@ -45,8 +45,8 @@ export default class PowerAnalysisUtils {
         rangeLength--;
 
         while (currentPosition <= rangeStart + rangeLength && currentPosition + 1 < powerReadings.length) {
-            const readingOne = powerReadings[currentPosition].power1 || 0;
-            const readingTwo = powerReadings[currentPosition + 1].power1 || 0;
+            const readingOne = powerReadings[currentPosition].power || 0;
+            const readingTwo = powerReadings[currentPosition + 1].power || 0;
             rangeTotalPower += (readingOne + readingTwo) / 2;
             currentPosition++;
         }

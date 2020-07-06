@@ -63,7 +63,10 @@ function PowerChart() {
                             <ValueAxis />
                             {
                                 files.map((file: File) => {
-                                    return <LineSeries valueField={'power' + (++fileLoop)} argumentField="time" name={file.name}/>
+                                    return ([
+                                        <LineSeries key={file.name + 'power'} valueField={'power'} argumentField="time" name={'Power'}/>,
+                                        <LineSeries key={file.name + 'cadence'} valueField={'cadence'} argumentField="time" name={'Cadence'}/>
+                                    ]);  
                                 })
                             }
                             <ZoomAndPan />

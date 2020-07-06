@@ -4,7 +4,7 @@ import DataEntry from '../types/DataEntry';
 function createDataEntry(date: Date, power: number) {
     let dataEntry = new DataEntry();
     dataEntry.time = date;
-    dataEntry.power1 = power;
+    dataEntry.power = power;
     return dataEntry;
 }
 
