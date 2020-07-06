@@ -1,45 +1,37 @@
 import PowerAnalysisUtils from './PowerAnalysisUtils';
 import DataEntry from '../types/DataEntry';
-
-function createDataEntry(date: Date, power: number) {
-    let dataEntry = new DataEntry();
-    dataEntry.time = date;
-    dataEntry.power = power;
-    return dataEntry;
-}
+import AverageSecondPower from '../types/AverageSecondPower';
 
 test('getMaxPower returns max power', () => {
     let dataEntries: DataEntry[] = []
-    dataEntries.push(createDataEntry(new Date(), 1));
-    dataEntries.push(createDataEntry(new Date(), 3));
-    dataEntries.push(createDataEntry(new Date(), 2));
+    dataEntries.push(new DataEntry(new Date(), 1, 0));
+    dataEntries.push(new DataEntry(new Date(), 3, 0));
+    dataEntries.push(new DataEntry(new Date(), 2, 0));
 
     expect(PowerAnalysisUtils.getMaxPower(dataEntries)).toBe(3);
 });
 
 test('calculateAveragePower returns average power', () => {
     let dataEntries: DataEntry[] = []
-    dataEntries.push(createDataEntry(new Date(), 10));
-    dataEntries.push(createDataEntry(new Date(), 20));
-    dataEntries.push(createDataEntry(new Date(), 30));
+    dataEntries.push(new DataEntry(new Date(), 10, 0));
+    dataEntries.push(new DataEntry(new Date(), 20, 0));
+    dataEntries.push(new DataEntry(new Date(), 30, 0));
 
     expect(PowerAnalysisUtils.calculateAveragePower(dataEntries)).toBe(20);
 });
 
 test('calculateMaxAveragePowerByTime returns average power for ten seconds', () => {
-    let dataEntries: DataEntry[] = []
-    dataEntries.push(createDataEntry(new Date(), 615));  // 0
-    dataEntries.push(createDataEntry(new Date(), 835));  // 1
-    dataEntries.push(createDataEntry(new Date(), 886));  // 2
-    dataEntries.push(createDataEntry(new Date(), 939));  // 3
-    dataEntries.push(createDataEntry(new Date(), 948));  // 4
-    dataEntries.push(createDataEntry(new Date(), 925));  // 5
-    dataEntries.push(createDataEntry(new Date(), 861));  // 6
-    dataEntries.push(createDataEntry(new Date(), 888));  // 7
-    dataEntries.push(createDataEntry(new Date(), 785));  // 8
-    dataEntries.push(createDataEntry(new Date(), 781));  // 9
-    dataEntries.push(createDataEntry(new Date(), 724));  // 10
-    dataEntries.push(createDataEntry(new Date(), 673));  // 11
-
-    expect(PowerAnalysisUtils.calculateMaxAveragePowerByTime(dataEntries, 10)).toBe(851);
+    let averageSecondPower: AverageSecondPower[] = [
+        new AverageSecondPower(615, 835),
+        new AverageSecondPower(835, 886),
+        new AverageSecondPower(886, 939),
+        new AverageSecondPower(939, 948),
+        new AverageSecondPower(948, 925),
+        new AverageSecondPower(925, 861),
+        new AverageSecondPower(861, 888),
+        new AverageSecondPower(888, 785),
+        new AverageSecondPower(785, 781),
+        new AverageSecondPower(781, 724)
+    ]
+    expect(PowerAnalysisUtils.calculateMaxAveragePowerByTime(averageSecondPower, 10)).toBe(851);
 })
