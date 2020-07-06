@@ -31,7 +31,7 @@ export default class PowerAnalysisUtils {
     static calculateMaxAveragePowerByTime(powerReadings: AverageSecondPower[], seconds: number) {
         let maxAveragePower = 0;
         for (let i = 0; i < powerReadings.length; i++) {
-            const averageRange = new AverageRange(powerReadings.splice(i, i + seconds), seconds)
+            const averageRange = new AverageRange(powerReadings.slice(i, i + seconds), seconds)
             const rangeAveragePower = averageRange.average();
             if (rangeAveragePower > maxAveragePower)
                 maxAveragePower = rangeAveragePower;
