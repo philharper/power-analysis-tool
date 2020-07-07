@@ -23,8 +23,6 @@ function PowerChart() {
     const [uploadOpen, setUploadOpen] = useState(false);
     const [displayGraph, setDisplayGraph] = useState(false);
 
-    let fileLoop = 0;
-
     const uploadFile = (acceptedFiles: File[]) => {
         setFiles(acceptedFiles);
         setUploadOpen(false);
