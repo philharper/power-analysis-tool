@@ -2,21 +2,20 @@ import PowerAnalysisUtils from './PowerAnalysisUtils';
 import DataEntry from '../types/DataEntry';
 import AverageSecondPower from '../types/AverageSecondPower';
 
-
 test('getMaxPower returns max power', () => {
     let dataEntries: DataEntry[] = []
-    dataEntries.push(new DataEntry(new Date(), 1));
-    dataEntries.push(new DataEntry(new Date(), 3));
-    dataEntries.push(new DataEntry(new Date(), 2));
+    dataEntries.push(new DataEntry(new Date(), 1, 0, 0));
+    dataEntries.push(new DataEntry(new Date(), 3, 0, 0));
+    dataEntries.push(new DataEntry(new Date(), 2, 0, 0));
 
     expect(PowerAnalysisUtils.getMaxPower(dataEntries)).toBe(3);
 });
 
 test('calculateAveragePower returns average power', () => {
     let dataEntries: DataEntry[] = []
-    dataEntries.push(new DataEntry(new Date(), 10));
-    dataEntries.push(new DataEntry(new Date(), 20));
-    dataEntries.push(new DataEntry(new Date(), 30));
+    dataEntries.push(new DataEntry(new Date(), 10, 0, 0));
+    dataEntries.push(new DataEntry(new Date(), 20, 0, 0));
+    dataEntries.push(new DataEntry(new Date(), 30, 0, 0));
 
     expect(PowerAnalysisUtils.calculateAveragePower(dataEntries)).toBe(20);
 });

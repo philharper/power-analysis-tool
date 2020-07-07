@@ -1,30 +1,36 @@
 import DataEntry from "../types/DataEntry";
-import { xml2js } from "xml-js";
+import { parseString, processors } from "xml2js";
 
 export default class GpxUtils {
 
     static async parseGpxFile(gpxFile: File, fileNumber: number) {
         let powerReadings: DataEntry[] = [];
-        
         await gpxFile.text().then((output) => {
-            const gpxContent = xml2js(output);
-            for (const reading of gpxContent.elements[0].elements[1].elements[2].elements) {
-                const time = new Date(reading.elements[1].elements[0].text);
-                const power = reading.elements[2].elements[0].elements[0].text;
-                
-                if (power) {
-                    const powerReading = new DataEntry(time, 0) 
-                    if (fileNumber === 1) {
-                        powerReading.power1 = parseInt(power);
-                    }
-                    if (fileNumber === 2) {
-                        powerReading.power2 = parseInt(power);
-                    }
-                    powerReadings.push(powerReading);
-                }
-            }
+            parseString(output, { tagNameProcessors: [ processors.stripPrefix ] }, (error, output) => {
+                if (error) console.log("Error parsing GPX file");
+                GpxUtils.convertGpxToDataEntryArray(output, powerReadings);
+            });
         });
 
         return powerReadings;
+    }
+
+    private static convertGpxToDataEntryArray(output: any, powerReadings: DataEntry[]) {
+        for (const reading of output.gpx.trk[0].trkseg[0].trkpt) {
+            try {
+                const time = new Date(reading.time);
+                const power = Number(reading.extensions[0].power[0]);
+                const cadence = Number(reading.extensions[0].TrackPointExtension[0].cad[0]);
+                const heartRate = Number(reading.extensions[0].TrackPointExtension[0].hr[0]);
+
+                if (power && cadence && heartRate) {
+                    const powerReading = new DataEntry(time, power, cadence, heartRate);
+                    powerReadings.push(powerReading);
+                }
+            }
+            catch {
+                console.log('Error extracting data from GPX');
+            }
+        }
     }
 }

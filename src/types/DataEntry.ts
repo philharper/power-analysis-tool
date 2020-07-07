@@ -1,10 +1,13 @@
 export default class DataEntry {
-    time?: Date;
-    power1?: number;
-    power2?: number;
+    readonly time: Date;
+    readonly power: number;
+    readonly cadence: number;
+    readonly heartRate: number;
 
-    constructor(time: Date, power1: number) {
-        this.time = time
-        this.power1 = power1
+    constructor(time: Date, power: number, cadence: number, heartRate: number) {
+        this.time = time;
+        this.power = power;
+        this.cadence = cadence;
+        this.heartRate = heartRate;
     }
 }

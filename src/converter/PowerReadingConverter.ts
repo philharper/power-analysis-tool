@@ -14,7 +14,7 @@ export class PowerReadingConverter {
         return dataEntries.reduce((averageSecondPower, average, index, array) => {
             let nextIndex = index + 1
             if (nextIndex < array.length) {
-                averageSecondPower.push(new AverageSecondPower(average.power1 || 0, array[nextIndex].power1 || 0))
+                averageSecondPower.push(new AverageSecondPower(average.power || 0, array[nextIndex].power || 0))
             }
             return averageSecondPower;
         }, new Array<AverageSecondPower>())
