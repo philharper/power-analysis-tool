@@ -8,6 +8,7 @@ import {
     Legend,
     Title
   } from '@devexpress/dx-react-chart-material-ui';
+import { Plugin } from '@devexpress/dx-react-core';
 import {DropzoneDialog} from 'material-ui-dropzone';
 import { Button } from '@material-ui/core';
 import { ArgumentScale } from '@devexpress/dx-react-chart';
@@ -22,6 +23,10 @@ function PowerChart() {
     const [files, setFiles] = useState([] as File[]);
     const [uploadOpen, setUploadOpen] = useState(false);
     const [displayGraph, setDisplayGraph] = useState(false);
+
+    const [displayPower, setDisplayPower] = useState(true);
+    const [displayCadence, setDisplayCadence] = useState(true);
+    const [displayHeartRate, setDisplayHeartRate] = useState(false);
 
     const uploadFile = (acceptedFiles: File[]) => {
         setFiles(acceptedFiles);
@@ -45,6 +50,14 @@ function PowerChart() {
         setDisplayGraph(true);
     }
 
+    const toggleLine = (display: boolean, setter: (toggle: boolean) => void) => {
+        if (display) {
+            setter(false);
+        } else {
+            setter(true);
+        }
+    }
+
     return (
         <>
             <Button onClick={() => setUploadOpen(true)}>Upload File</Button>
@@ -59,18 +72,27 @@ function PowerChart() {
                             <ArgumentScale factory={scaleTime}/>
                             <ArgumentAxis />
                             <ValueAxis />
-                            {
-                                files.map((file: File) => {
-                                    return ([
-                                        <LineSeries key={file.name + 'power'} valueField={'power'} argumentField="time" name={'Power'}/>,
-                                        <LineSeries key={file.name + 'cadence'} valueField={'cadence'} argumentField="time" name={'Cadence'}/>,
-                                        <LineSeries key={file.name + 'heartrate'} valueField={'heartRate'} argumentField="time" name={'Heart Rate'}/>
-                                    ]);  
-                                })
-                            }
+                            <Plugin>
+                                {
+                                    files.map((file: File) => {
+                                        let lines = [];
+                                        if (displayPower)
+                                            lines.push(<LineSeries key={file.name + 'power'} valueField={'power'} argumentField="time" name={'Power'}/>);
+                                        if (displayCadence)
+                                            lines.push(<LineSeries key={file.name + 'cadence'} valueField={'cadence'} argumentField="time" name={'Cadence'}/>);
+                                        if (displayHeartRate)
+                                            lines.push(<LineSeries key={file.name + 'heartrate'} valueField={'heartRate'} argumentField="time" name={'Heart Rate'}/>);
+
+                                        return lines;  
+                                    })
+                                }
+                            </Plugin>
                             <ZoomAndPan />
                             <Legend position='bottom'/>
                         </Chart>
+                        <Button onClick={() => toggleLine(displayPower, setDisplayPower)}>Power</Button>
+                        <Button onClick={() => toggleLine(displayCadence, setDisplayCadence)}>Cadence</Button>
+                        <Button onClick={() => toggleLine(displayHeartRate, setDisplayHeartRate)}>Heart Rate</Button>
                         <PowerAverages data={data} />
                     </>
             }
