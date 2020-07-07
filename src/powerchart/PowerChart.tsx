@@ -6,12 +6,13 @@ import {
     LineSeries,
     ZoomAndPan,
     Legend,
-    Title
+    Title,
+    Tooltip
   } from '@devexpress/dx-react-chart-material-ui';
 import { Plugin } from '@devexpress/dx-react-core';
 import {DropzoneDialog} from 'material-ui-dropzone';
 import { Button } from '@material-ui/core';
-import { ArgumentScale } from '@devexpress/dx-react-chart';
+import { ArgumentScale, EventTracker } from '@devexpress/dx-react-chart';
 import { scaleTime } from 'd3-scale';
 import DataEntry from '../types/DataEntry';
 import GpxUtils from '../utils/GpxUtils';
@@ -69,9 +70,11 @@ function PowerChart() {
                             data={data}   
                         >
                             <Title text="Power Graph"/>
+                            <EventTracker />
                             <ArgumentScale factory={scaleTime}/>
                             <ArgumentAxis />
                             <ValueAxis />
+                            <Tooltip />
                             <Plugin>
                                 {
                                     files.map((file: File) => {
