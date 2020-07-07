@@ -26,7 +26,7 @@ function PowerChart() {
 
     const [displayPower, setDisplayPower] = useState(true);
     const [displayCadence, setDisplayCadence] = useState(true);
-    const [displayHeartRate, setDisplayHeartRate] = useState(false);
+    const [displayHeartRate, setDisplayHeartRate] = useState(true);
 
     const uploadFile = (acceptedFiles: File[]) => {
         setFiles(acceptedFiles);
