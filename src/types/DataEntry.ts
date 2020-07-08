@@ -1,13 +1,9 @@
 export default class DataEntry {
     readonly time: Date;
-    readonly power: number;
-    readonly cadence: number;
-    readonly heartRate: number;
+    readonly value: number;
 
-    constructor(time: Date, power: number, cadence: number, heartRate: number) {
+    constructor(time: Date, value: number) {
         this.time = time;
-        this.power = power;
-        this.cadence = cadence;
-        this.heartRate = heartRate;
+        this.value = value;
     }
 }
