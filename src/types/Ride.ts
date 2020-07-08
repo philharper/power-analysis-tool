@@ -14,7 +14,7 @@ export class Ride implements Plottable {
 
     plottables(): Map<string, DataEntry[]> {
         const plottables = new Map()
-        plottables.set("power", this.power)
+        plottables.set("Power", this.power)
         plottables.set("Heart Rate", this.heartRate)
         plottables.set("Cadence", this.cadence)
         return plottables
